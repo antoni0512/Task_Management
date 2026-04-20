@@ -26,16 +26,16 @@ export default function TopHeader() {
 
   return (
     <header
-      className="h-14 border-b border-white/[0.08] flex items-center justify-between px-6 bg-[#050505] shrink-0"
+      className="h-14 flex items-center justify-between px-6 bg-primary shrink-0"
       data-testid="top-header"
     >
       <div className="flex flex-col">
         <div className="flex items-center gap-2">
-          <h1 className="font-display text-[15px] font-semibold text-white tracking-tight">
+          <h1 className="font-display text-[15px] font-semibold text-primary-foreground tracking-tight">
             {meta.title}
           </h1>
-          <span className="text-zinc-600 text-xs">/</span>
-          <span className="text-zinc-400 text-xs">{meta.sub}</span>
+          <span className="text-primary-foreground/60 text-xs">/</span>
+          <span className="text-primary-foreground/80 text-xs">{meta.sub}</span>
         </div>
       </div>
 
@@ -45,10 +45,10 @@ export default function TopHeader() {
             <Stat label="Overdue" value={stats.overdue} color="#F87171" testid="stat-overdue" />
             <Stat label="In Progress" value={stats.in_progress} color="#FBBF24" testid="stat-in_progress" />
             <Stat label="Completed" value={stats.completed} color="#34D399" testid="stat-completed" />
-            <div className="keycap" title="Total tasks">{stats.total}</div>
+            <div className="keycap bg-black/20 border-white/10 text-white" title="Total tasks">{stats.total}</div>
           </>
         ) : (
-          <Loader2 className="h-3.5 w-3.5 animate-spin text-zinc-500" />
+          <Loader2 className="h-3.5 w-3.5 animate-spin text-primary-foreground/80" />
         )}
       </div>
     </header>
@@ -59,8 +59,8 @@ function Stat({ label, value, color, testid }) {
   return (
     <div className="flex items-center gap-1.5" data-testid={testid}>
       <span className="h-1.5 w-1.5 rounded-full" style={{ background: color }} />
-      <span className="font-mono text-zinc-100">{value}</span>
-      <span className="text-zinc-500">{label}</span>
+      <span className="font-mono text-primary-foreground">{value}</span>
+      <span className="text-primary-foreground/80">{label}</span>
     </div>
   );
 }

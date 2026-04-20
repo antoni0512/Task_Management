@@ -1,5 +1,6 @@
+import { useState } from "react";
 import { NavLink } from "react-router-dom";
-import { LayoutDashboard, ListChecks, CalendarRange, Database, Github } from "lucide-react";
+import { LayoutDashboard, ListChecks, CalendarRange, Database, ChevronLeft, ChevronRight } from "lucide-react";
 
 const NAV = [
   { to: "/dashboard", label: "Dashboard", icon: LayoutDashboard, testid: "nav-dashboard" },
@@ -8,70 +9,79 @@ const NAV = [
 ];
 
 export default function Sidebar() {
+  const [isCollapsed, setIsCollapsed] = useState(false);
+
   return (
     <aside
-      className="w-60 flex-shrink-0 border-r border-white/[0.08] bg-[#0A0A0A] flex flex-col"
+      className={`flex-shrink-0 border-r border-border bg-background flex flex-col transition-all duration-300 ease-in-out ${isCollapsed ? "w-16" : "w-60"
+        }`}
       data-testid="sidebar"
     >
-      <div className="h-14 flex items-center px-5 border-b border-white/[0.08]">
-        <div className="flex items-center gap-2">
-          <div className="h-7 w-7 rounded-md bg-white text-black grid place-items-center">
-            <Database className="h-4 w-4" strokeWidth={2.5} />
+      <div className="h-14 flex items-center px-4 border-b border-border justify-between">
+        {isCollapsed ? (
+          <div className="w-full flex justify-center">
+            <button
+              onClick={() => setIsCollapsed(!isCollapsed)}
+              className="h-8 w-8 rounded-md hover:bg-muted text-muted-foreground hover:text-foreground grid place-items-center transition-colors"
+              title="Expand Sidebar"
+            >
+              <ChevronRight className="h-5 w-5" />
+            </button>
           </div>
-          <div className="flex flex-col leading-tight">
-            <span className="font-display text-sm font-semibold text-white tracking-tight">
-              PERT Atlas
-            </span>
-            <span className="text-[10px] uppercase tracking-widest text-zinc-500">
-              Task Console
-            </span>
-          </div>
-        </div>
+        ) : (
+          <>
+            <div className="flex items-center gap-2 overflow-hidden">
+              <div className="h-7 w-7 rounded-md bg-primary text-primary-foreground grid place-items-center flex-shrink-0">
+                <Database className="h-4 w-4" strokeWidth={2.5} />
+              </div>
+              <div className="flex flex-col leading-tight overflow-hidden">
+                <span className="font-display text-sm font-semibold text-foreground tracking-tight truncate">
+                  PERT Atlas
+                </span>
+                <span className="text-[10px] uppercase tracking-widest text-muted-foreground truncate">
+                  Task Console
+                </span>
+              </div>
+            </div>
+            <button
+              onClick={() => setIsCollapsed(!isCollapsed)}
+              className="h-8 w-8 rounded-md hover:bg-muted flex-shrink-0 text-muted-foreground hover:text-foreground grid place-items-center transition-colors"
+              title="Collapse Sidebar"
+            >
+              <ChevronLeft className="h-5 w-5" />
+            </button>
+          </>
+        )}
       </div>
 
-      <nav className="flex-1 py-4 px-2 space-y-0.5">
-        <div className="px-3 pb-2 text-[10px] uppercase tracking-widest text-zinc-500">
-          Workspace
-        </div>
+      <nav className="flex-1 py-4 px-2 space-y-1 overflow-x-hidden">
+        {!isCollapsed && (
+          <div className="px-3 pb-2 text-[10px] uppercase tracking-widest text-muted-foreground whitespace-nowrap">
+            Workspace
+          </div>
+        )}
         {NAV.map((item) => {
           const Icon = item.icon;
           return (
             <NavLink
               key={item.to}
               to={item.to}
+              title={isCollapsed ? item.label : undefined}
               data-testid={item.testid}
               className={({ isActive }) =>
-                `group flex items-center gap-2.5 px-3 py-1.5 rounded-md text-sm transition-colors ${
-                  isActive
-                    ? "bg-white/[0.06] text-white"
-                    : "text-zinc-400 hover:bg-white/[0.04] hover:text-zinc-200"
+                `group flex items-center ${isCollapsed ? "justify-center" : "gap-2.5 px-3"} py-2 rounded-md text-sm transition-colors ${isActive
+                  ? "bg-muted text-foreground"
+                  : "text-muted-foreground hover:bg-muted hover:text-foreground"
                 }`
               }
             >
-              <Icon className="h-4 w-4" strokeWidth={1.75} />
-              <span>{item.label}</span>
+              <Icon className="h-4 w-4 flex-shrink-0" strokeWidth={1.75} />
+              {!isCollapsed && <span className="whitespace-nowrap truncate">{item.label}</span>}
             </NavLink>
           );
         })}
 
-        <div className="pt-6 px-3 pb-2 text-[10px] uppercase tracking-widest text-zinc-500">
-          Source
-        </div>
-        <div
-          className="px-3 py-1.5 text-sm text-zinc-500 flex items-center gap-2"
-          data-testid="source-oracle"
-        >
-          <span className="h-1.5 w-1.5 rounded-full bg-emerald-400" />
-          Oracle · PERT Planning
-        </div>
       </nav>
-
-      <div className="border-t border-white/[0.08] p-3">
-        <div className="flex items-center gap-2 text-xs text-zinc-500">
-          <Github className="h-3.5 w-3.5" />
-          <span>v1.0.0 · desktop</span>
-        </div>
-      </div>
     </aside>
   );
 }

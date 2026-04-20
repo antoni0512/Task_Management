@@ -5,7 +5,7 @@ import TopHeader from "./TopHeader";
 export default function AppShell() {
   return (
     <div
-      className="flex h-screen w-full overflow-hidden bg-[#050505] text-zinc-200"
+      className="flex h-screen w-full overflow-hidden bg-background text-foreground"
       data-testid="app-shell"
     >
       <Sidebar />

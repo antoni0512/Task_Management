@@ -98,13 +98,13 @@ export default function TaskDetailSheet({ task, open, onOpenChange }) {
     <Sheet open={open} onOpenChange={onOpenChange}>
       <SheetContent
         side="right"
-        className="w-[520px] sm:max-w-[520px] bg-[#0B0B0B] border-l border-white/[0.08] text-zinc-200 p-0 flex flex-col"
+        className="w-[520px] sm:max-w-[520px] bg-background border-l border-border text-foreground p-0 flex flex-col"
         data-testid="task-detail-sheet"
       >
-        <SheetHeader className="p-6 pb-4 border-b border-white/[0.06] space-y-2">
+        <SheetHeader className="p-6 pb-4 border-b border-border space-y-2">
           <div className="flex items-center gap-2">
             <span
-              className="font-mono text-[11px] text-zinc-300 bg-white/[0.04] px-1.5 py-0.5 rounded border border-white/[0.06]"
+              className="font-mono text-[11px] text-foreground bg-muted px-1.5 py-0.5 rounded border border-border"
               data-testid="detail-pert-id"
             >
               {task.pert_id}
@@ -117,17 +117,17 @@ export default function TaskDetailSheet({ task, open, onOpenChange }) {
               {PRIORITY_META[task.priority]?.label} priority
             </span>
           </div>
-          <SheetTitle className="font-display text-lg text-white leading-snug tracking-tight">
+          <SheetTitle className="font-display text-lg text-foreground leading-snug tracking-tight">
             {task.title}
           </SheetTitle>
-          <SheetDescription className="text-sm text-zinc-400 leading-relaxed">
+          <SheetDescription className="text-sm text-muted-foreground leading-relaxed">
             {task.description}
           </SheetDescription>
         </SheetHeader>
 
         <div className="flex-1 overflow-y-auto">
           {/* Meta grid */}
-          <div className="grid grid-cols-2 gap-0 border-b border-white/[0.06]">
+          <div className="grid grid-cols-2 gap-0 border-b border-border">
             <MetaCell icon={User} label="Assignee" value={task.assignee} sub={task.assignee_email} />
             <MetaCell icon={Tag} label="Team" value={task.team} />
             <MetaCell icon={Calendar} label="Due" value={formatDate(task.due_date)} />
@@ -135,11 +135,11 @@ export default function TaskDetailSheet({ task, open, onOpenChange }) {
           </div>
 
           {task.tags?.length ? (
-            <div className="px-6 py-3 border-b border-white/[0.06] flex items-center gap-1.5 flex-wrap">
+            <div className="px-6 py-3 border-b border-border flex items-center gap-1.5 flex-wrap">
               {task.tags.map((t) => (
                 <span
                   key={t}
-                  className="font-mono text-[10px] px-1.5 py-0.5 rounded border border-white/[0.08] text-zinc-400 bg-white/[0.02]"
+                  className="font-mono text-[10px] px-1.5 py-0.5 rounded border border-border text-muted-foreground bg-muted"
                 >
                   #{t}
                 </span>
@@ -151,15 +151,15 @@ export default function TaskDetailSheet({ task, open, onOpenChange }) {
           <div className="p-6">
             <div className="flex items-center justify-between mb-3">
               <div>
-                <h3 className="font-display text-sm text-white font-medium">Local attachments</h3>
-                <p className="text-[11px] text-zinc-500">
+                <h3 className="font-display text-sm text-foreground font-medium">Local attachments</h3>
+                <p className="text-[11px] text-muted-foreground">
                   Testcases, screenshots and docs for{" "}
-                  <span className="font-mono text-zinc-300">{task.pert_id}</span> — stored{" "}
+                  <span className="font-mono text-foreground">{task.pert_id}</span> — stored{" "}
                   {IS_ELECTRON ? "on this desktop" : "in browser IndexedDB"}.
                 </p>
               </div>
               <div
-                className="flex items-center gap-1 text-[10px] text-zinc-500 uppercase tracking-widest"
+                className="flex items-center gap-1 text-[10px] text-muted-foreground uppercase tracking-widest"
                 data-testid="storage-mode"
               >
                 <HardDrive className="h-3 w-3" />
@@ -181,16 +181,16 @@ export default function TaskDetailSheet({ task, open, onOpenChange }) {
               onClick={() => inputRef.current?.click()}
               className={`border border-dashed rounded-md p-6 flex flex-col items-center justify-center transition-all text-center cursor-pointer ${
                 dragging
-                  ? "border-white/30 bg-white/[0.04]"
-                  : "border-white/[0.15] hover:border-white/25 hover:bg-white/[0.02]"
+                  ? "border-border bg-muted"
+                  : "border-border hover:border-border hover:bg-muted"
               }`}
               data-testid="attachment-dropzone"
             >
-              <Upload className="h-5 w-5 text-zinc-400 mb-2" strokeWidth={1.5} />
-              <div className="text-sm text-zinc-200">
+              <Upload className="h-5 w-5 text-muted-foreground mb-2" strokeWidth={1.5} />
+              <div className="text-sm text-foreground">
                 Drag &amp; drop files or <span className="underline decoration-dotted">browse</span>
               </div>
-              <div className="text-[11px] text-zinc-500 mt-1">
+              <div className="text-[11px] text-muted-foreground mt-1">
                 Screenshots · PDFs · test scripts · anything (up to 50 MB each)
               </div>
               <input
@@ -208,14 +208,14 @@ export default function TaskDetailSheet({ task, open, onOpenChange }) {
 
             <div className="mt-4">
               <div className="flex items-center justify-between mb-2">
-                <span className="text-[10px] uppercase tracking-widest text-zinc-500">
+                <span className="text-[10px] uppercase tracking-widest text-muted-foreground">
                   Files ({files.length})
                 </span>
-                {loading && <span className="text-[10px] text-zinc-500">loading…</span>}
+                {loading && <span className="text-[10px] text-muted-foreground">loading…</span>}
               </div>
 
               {files.length === 0 ? (
-                <div className="text-xs text-zinc-600 py-6 text-center border border-white/[0.04] rounded-md">
+                <div className="text-xs text-muted-foreground py-6 text-center border border-border rounded-md">
                   No files attached yet.
                 </div>
               ) : (
@@ -223,13 +223,13 @@ export default function TaskDetailSheet({ task, open, onOpenChange }) {
                   {files.map((f) => (
                     <li
                       key={f.id}
-                      className="flex items-center gap-2 p-2 rounded-md hover:bg-white/[0.04] group border border-transparent hover:border-white/[0.04]"
+                      className="flex items-center gap-2 p-2 rounded-md hover:bg-muted group border border-transparent hover:border-border"
                       data-testid={`attachment-item-${f.id}`}
                     >
                       <FileIcon type={f.type} name={f.name} />
                       <div className="min-w-0 flex-1">
-                        <div className="text-sm text-zinc-100 truncate">{f.name}</div>
-                        <div className="text-[10px] text-zinc-500 font-mono">
+                        <div className="text-sm text-foreground truncate">{f.name}</div>
+                        <div className="text-[10px] text-muted-foreground font-mono">
                           {humanSize(f.size)} · {new Date(f.mtime).toLocaleString()}
                         </div>
                       </div>
@@ -271,15 +271,15 @@ export default function TaskDetailSheet({ task, open, onOpenChange }) {
           </div>
         </div>
 
-        <Separator className="bg-white/[0.06]" />
+        <Separator className="bg-muted" />
         <div className="p-4 flex items-center justify-between">
-          <span className="text-[10px] uppercase tracking-widest text-zinc-500">
+          <span className="text-[10px] uppercase tracking-widest text-muted-foreground">
             PERT title is editable upstream in Oracle — attachments persist by ID
           </span>
           <Button
             variant="outline"
             size="sm"
-            className="h-8 bg-transparent border-white/10 text-zinc-300 hover:bg-white/5 hover:text-white"
+            className="h-8 bg-transparent border-border text-foreground hover:bg-muted hover:text-foreground"
             onClick={() => onOpenChange(false)}
             data-testid="detail-close"
           >
@@ -293,13 +293,13 @@ export default function TaskDetailSheet({ task, open, onOpenChange }) {
 
 function MetaCell({ icon: Icon, label, value, sub }) {
   return (
-    <div className="p-4 border-r border-b border-white/[0.04] last:border-r-0">
-      <div className="flex items-center gap-1.5 text-[10px] uppercase tracking-widest text-zinc-500 mb-1">
+    <div className="p-4 border-r border-b border-border last:border-r-0">
+      <div className="flex items-center gap-1.5 text-[10px] uppercase tracking-widest text-muted-foreground mb-1">
         <Icon className="h-3 w-3" />
         {label}
       </div>
-      <div className="text-sm text-zinc-100">{value}</div>
-      {sub && <div className="text-[11px] text-zinc-500 mt-0.5">{sub}</div>}
+      <div className="text-sm text-foreground">{value}</div>
+      {sub && <div className="text-[11px] text-muted-foreground mt-0.5">{sub}</div>}
     </div>
   );
 }
@@ -311,8 +311,8 @@ function IconBtn({ children, onClick, destructive, testid }) {
       data-testid={testid}
       className={`h-7 w-7 rounded flex items-center justify-center transition-colors ${
         destructive
-          ? "text-zinc-400 hover:text-rose-400 hover:bg-rose-500/10"
-          : "text-zinc-400 hover:text-white hover:bg-white/10"
+          ? "text-muted-foreground hover:text-rose-400 hover:bg-rose-500/10"
+          : "text-muted-foreground hover:text-foreground hover:bg-muted"
       }`}
     >
       {children}
@@ -337,7 +337,7 @@ function FileIcon({ type = "", name = "" }) {
   }
   return (
     <div
-      className="h-8 w-8 rounded border border-white/[0.08] bg-white/[0.03] grid place-items-center"
+      className="h-8 w-8 rounded border border-border bg-muted grid place-items-center"
       style={{ color }}
     >
       <Icon className="h-4 w-4" strokeWidth={1.5} />

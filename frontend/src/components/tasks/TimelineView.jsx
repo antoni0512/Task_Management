@@ -29,7 +29,7 @@ export default function TimelineView({ tasks, onSelect }) {
 
   if (!entries.length) {
     return (
-      <div className="flex-1 flex items-center justify-center text-zinc-500 text-sm">
+      <div className="flex-1 flex items-center justify-center text-muted-foreground text-sm">
         No tasks to plot on the timeline.
       </div>
     );
@@ -40,13 +40,13 @@ export default function TimelineView({ tasks, onSelect }) {
       {entries.map(([label, items]) => (
         <section key={label} data-testid={`timeline-bucket-${label.toLowerCase().replace(/\s+/g, "-")}`}>
           <div className="flex items-center gap-3 mb-3">
-            <span className="text-[10px] uppercase tracking-widest text-zinc-500">
+            <span className="text-[10px] uppercase tracking-widest text-muted-foreground">
               {label}
             </span>
-            <div className="flex-1 h-px bg-white/[0.06]" />
-            <span className="font-mono text-[10px] text-zinc-500">{items.length}</span>
+            <div className="flex-1 h-px bg-muted" />
+            <span className="font-mono text-[10px] text-muted-foreground">{items.length}</span>
           </div>
-          <div className="relative pl-5 border-l border-white/[0.08] space-y-2">
+          <div className="relative pl-5 border-l border-border space-y-2">
             {items.map((t) => {
               const diff = daysFromNow(t.due_date);
               const meta = STATUS_META[t.status];
@@ -55,25 +55,25 @@ export default function TimelineView({ tasks, onSelect }) {
                   key={t.pert_id}
                   onClick={() => onSelect(t)}
                   data-testid={`timeline-task-${t.pert_id}`}
-                  className="relative w-full text-left flex items-center gap-3 p-3 rounded-md border border-white/[0.06] bg-white/[0.015] hover:bg-white/[0.04] hover:border-white/[0.1] transition-colors"
+                  className="relative w-full text-left flex items-center gap-3 p-3 rounded-md border border-border bg-muted hover:bg-muted hover:border-border transition-colors"
                 >
                   <span
                     className="absolute -left-[25px] top-1/2 -translate-y-1/2 h-2 w-2 rounded-full ring-4 ring-[#050505]"
                     style={{ background: meta.text }}
                   />
-                  <span className="font-mono text-[11px] text-zinc-400 bg-white/[0.04] px-1.5 py-0.5 rounded border border-white/[0.06] flex-shrink-0">
+                  <span className="font-mono text-[11px] text-muted-foreground bg-muted px-1.5 py-0.5 rounded border border-border flex-shrink-0">
                     {t.pert_id}
                   </span>
-                  <span className="text-sm text-zinc-100 flex-1 truncate">{t.title}</span>
+                  <span className="text-sm text-foreground flex-1 truncate">{t.title}</span>
                   <StatusChip status={t.status} size="xs" />
                   <span
                     className={`text-xs font-mono ${
-                      diff < 0 ? "text-rose-300" : "text-zinc-400"
+                      diff < 0 ? "text-rose-300" : "text-muted-foreground"
                     }`}
                   >
                     {formatDate(t.due_date)}
                     {diff != null && (
-                      <span className="text-zinc-600 ml-1.5">
+                      <span className="text-muted-foreground ml-1.5">
                         ({diff >= 0 ? `in ${diff}d` : `${-diff}d ago`})
                       </span>
                     )}

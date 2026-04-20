@@ -20,13 +20,13 @@ function App() {
         </Routes>
       </BrowserRouter>
       <Toaster
-        theme="dark"
+        theme="light"
         position="bottom-right"
         toastOptions={{
           style: {
-            background: "#0F0F0F",
-            border: "1px solid rgba(255,255,255,0.08)",
-            color: "#EDEDED",
+            background: "#FFFFFF",
+            border: "1px solid rgba(0,0,0,0.1)",
+            color: "#333333",
           },
         }}
       />

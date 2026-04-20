@@ -32,23 +32,23 @@ export default function FiltersToolbar({ filters, setFilters }) {
 
   return (
     <div
-      className="py-3 px-6 border-b border-white/[0.06] flex flex-wrap items-center gap-3 bg-[#050505]/90 backdrop-blur-md sticky top-0 z-10 shrink-0"
+      className="py-3 px-6 border-b border-border flex flex-wrap items-center gap-3 bg-background backdrop-blur-md sticky top-0 z-10 shrink-0"
       data-testid="filters-toolbar"
     >
       {/* Team selector */}
       <div className="flex items-center gap-2">
-        <span className="text-[10px] uppercase tracking-widest text-zinc-500">Team</span>
+        <span className="text-[10px] uppercase tracking-widest text-muted-foreground">Team</span>
         <Select
           value={filters.team}
           onValueChange={(v) => setFilters({ ...filters, team: v })}
         >
           <SelectTrigger
-            className="h-8 w-[140px] bg-transparent border-white/10 text-zinc-200 focus:ring-0 focus:ring-offset-0"
+            className="h-8 w-[140px] bg-transparent border-border text-foreground focus:ring-0 focus:ring-offset-0"
             data-testid="filter-team-trigger"
           >
             <SelectValue />
           </SelectTrigger>
-          <SelectContent className="bg-[#0F0F0F] border-white/10 text-zinc-200">
+          <SelectContent className="bg-background border-border text-foreground">
             <SelectItem value="all" data-testid="filter-team-all">All teams</SelectItem>
             {teams.map((t) => (
               <SelectItem key={t} value={t} data-testid={`filter-team-${t}`}>
@@ -72,7 +72,7 @@ export default function FiltersToolbar({ filters, setFilters }) {
               className={`inline-flex items-center gap-1.5 px-2.5 h-7 rounded-full text-[11px] font-medium border transition-colors ${
                 active
                   ? "text-black"
-                  : "text-zinc-400 border-white/10 hover:border-white/20 hover:text-zinc-200"
+                  : "text-muted-foreground border-border hover:border-border hover:text-foreground"
               }`}
               style={
                 active
@@ -95,9 +95,9 @@ export default function FiltersToolbar({ filters, setFilters }) {
         <PopoverTrigger asChild>
           <Button
             variant="outline"
-            className={`h-8 px-2.5 bg-transparent border-white/10 text-xs ${
-              hasDate ? "text-white border-white/20" : "text-zinc-400"
-            } hover:bg-white/5 hover:text-zinc-100`}
+            className={`h-8 px-2.5 bg-transparent border-border text-xs ${
+              hasDate ? "text-foreground border-border" : "text-muted-foreground"
+            } hover:bg-muted hover:text-foreground`}
             data-testid="filter-daterange-trigger"
           >
             <CalendarDays className="h-3.5 w-3.5 mr-1.5" />
@@ -109,7 +109,7 @@ export default function FiltersToolbar({ filters, setFilters }) {
           </Button>
         </PopoverTrigger>
         <PopoverContent
-          className="w-auto p-0 bg-[#0F0F0F] border-white/10"
+          className="w-auto p-0 bg-background border-border"
           align="start"
         >
           <Calendar
@@ -127,11 +127,11 @@ export default function FiltersToolbar({ filters, setFilters }) {
             }
             className="p-3"
           />
-          <div className="p-2 border-t border-white/10 flex justify-end">
+          <div className="p-2 border-t border-border flex justify-end">
             <Button
               variant="ghost"
               size="sm"
-              className="h-7 text-xs text-zinc-400 hover:text-white"
+              className="h-7 text-xs text-muted-foreground hover:text-foreground"
               onClick={() => setFilters({ ...filters, dateFrom: "", dateTo: "" })}
               data-testid="filter-daterange-clear"
             >
@@ -143,18 +143,18 @@ export default function FiltersToolbar({ filters, setFilters }) {
 
       {/* Search */}
       <div className="relative flex-1 min-w-[220px] max-w-md ml-auto">
-        <Search className="h-3.5 w-3.5 absolute left-2.5 top-1/2 -translate-y-1/2 text-zinc-500" />
+        <Search className="h-3.5 w-3.5 absolute left-2.5 top-1/2 -translate-y-1/2 text-muted-foreground" />
         <Input
           placeholder="Search by PERT-ID, title, assignee…"
           value={filters.search}
           onChange={(e) => setFilters({ ...filters, search: e.target.value })}
           data-testid="filter-search-input"
-          className="h-8 pl-8 pr-8 bg-[#0F0F0F] border-white/10 text-sm text-zinc-200 placeholder:text-zinc-600 focus-visible:ring-1 focus-visible:ring-white/30 focus-visible:ring-offset-0"
+          className="h-8 pl-8 pr-8 bg-background border-border text-sm text-foreground placeholder:text-muted-foreground focus-visible:ring-1 focus-visible:ring-white/30 focus-visible:ring-offset-0"
         />
         {filters.search && (
           <button
             onClick={() => setFilters({ ...filters, search: "" })}
-            className="absolute right-2 top-1/2 -translate-y-1/2 text-zinc-500 hover:text-white"
+            className="absolute right-2 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground"
             data-testid="filter-search-clear"
           >
             <X className="h-3.5 w-3.5" />
@@ -165,7 +165,7 @@ export default function FiltersToolbar({ filters, setFilters }) {
       <Button
         variant="ghost"
         size="sm"
-        className="h-8 text-xs text-zinc-400 hover:text-white hover:bg-white/5"
+        className="h-8 text-xs text-muted-foreground hover:text-foreground hover:bg-muted"
         onClick={clearAll}
         data-testid="filter-clear-all"
       >

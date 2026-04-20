@@ -31,7 +31,7 @@ export default function TaskList({ tasks, loading, onSelect }) {
 
   if (loading) {
     return (
-      <div className="flex-1 flex items-center justify-center text-zinc-500">
+      <div className="flex-1 flex items-center justify-center text-muted-foreground">
         <Loader2 className="h-5 w-5 animate-spin mr-2" /> Loading tasks…
       </div>
     );
@@ -40,7 +40,7 @@ export default function TaskList({ tasks, loading, onSelect }) {
   if (!tasks.length) {
     return (
       <div
-        className="flex-1 flex flex-col items-center justify-center text-zinc-500 relative"
+        className="flex-1 flex flex-col items-center justify-center text-muted-foreground relative"
         data-testid="tasks-empty-state"
       >
         <div
@@ -52,9 +52,9 @@ export default function TaskList({ tasks, loading, onSelect }) {
             backgroundPosition: "center",
           }}
         />
-        <InboxIcon className="h-8 w-8 mb-3 text-zinc-600" strokeWidth={1.25} />
-        <div className="font-display text-sm text-zinc-300">No tasks match your filters</div>
-        <div className="text-xs text-zinc-600 mt-1">Try clearing the status chips or date range.</div>
+        <InboxIcon className="h-8 w-8 mb-3 text-muted-foreground" strokeWidth={1.25} />
+        <div className="font-display text-sm text-foreground">No tasks match your filters</div>
+        <div className="text-xs text-muted-foreground mt-1">Try clearing the status chips or date range.</div>
       </div>
     );
   }
@@ -62,7 +62,7 @@ export default function TaskList({ tasks, loading, onSelect }) {
   return (
     <div className="flex-1 overflow-y-auto px-6 py-2" data-testid="task-list">
       {/* column headers */}
-      <div className="task-row-grid py-2 px-3 -mx-3 text-[10px] uppercase tracking-widest text-zinc-500 border-b border-white/[0.04]">
+      <div className="task-row-grid py-2 px-3 -mx-3 text-[10px] uppercase tracking-widest bg-primary text-primary-foreground rounded-t-md mb-1">
         <div>PERT ID</div>
         <div>Title</div>
         <div className="task-row-hide-md">Team</div>

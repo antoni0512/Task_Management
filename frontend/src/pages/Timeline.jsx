@@ -37,7 +37,7 @@ export default function Timeline() {
     <div className="flex flex-col h-full" data-testid="timeline-page">
       <FiltersToolbar filters={filters} setFilters={setFilters} />
       {loading ? (
-        <div className="flex-1 flex items-center justify-center text-zinc-500">
+        <div className="flex-1 flex items-center justify-center text-muted-foreground">
           <Loader2 className="h-5 w-5 animate-spin mr-2" /> Loading timeline…
         </div>
       ) : (
