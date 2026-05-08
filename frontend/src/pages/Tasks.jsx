@@ -19,9 +19,12 @@ export default function Tasks() {
   const load = useCallback(async () => {
     setLoading(true);
     try {
+      console.log(`[TASKS] Fetching from ${fetchTasks.name} with filters:`, debounced);
       const data = await fetchTasks(debounced);
+      console.log(`[TASKS] Received ${data.length} tasks`);
       setTasks(data);
     } catch (e) {
+      console.error("[TASKS] Failed to load tasks:", e);
       toast.error("Failed to load tasks", { description: String(e?.message || e) });
       setTasks([]);
     } finally {

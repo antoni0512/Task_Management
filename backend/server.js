@@ -246,6 +246,19 @@ apiRouter.get("/stats", (req, res) => {
 
 app.use("/api", apiRouter);
 
-app.listen(port, () => {
-    console.log(`Server is running on port ${port}`);
+console.log(`[BACKEND] Initializing PERT Task Manager...`);
+
+const server = app.listen(port, () => {
+    console.log(`[BACKEND] Server successfully started!`);
+    console.log(`[BACKEND] Listening on: http://localhost:${port}`);
+    console.log(`[BACKEND] Health check: http://localhost:${port}/api`);
+});
+
+server.on('error', (e) => {
+    if (e.code === 'EADDRINUSE') {
+        console.error(`[FATAL] Port ${port} is already in use. Please kill the process using it or set a different PORT in .env`);
+        process.exit(1);
+    } else {
+        console.error(`[FATAL] Server error:`, e);
+    }
 });
