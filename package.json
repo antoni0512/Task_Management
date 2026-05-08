@@ -1,0 +1,12 @@
+{
+  "name": "task-management-root",
+  "version": "1.0.0",
+  "description": "Root for Task Management project",
+  "scripts": {
+    "dev": "concurrently \"npm start --prefix backend\" \"npm run dev:electron --prefix frontend\"",
+    "start": "npm run dev"
+  },
+  "devDependencies": {
+    "concurrently": "^9.1.0"
+  }
+}
